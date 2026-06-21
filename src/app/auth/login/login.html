@@ -1,0 +1,61 @@
+<div class="login-container">
+  <h2>User Login</h2>
+  
+  <form [formGroup]="loginForm" (ngSubmit) = "onSubmit()">
+    <!-- Username Field -->
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input
+            id="username"
+            type="username"
+            formControlName="username"
+            placeholder="Enter Username"
+            [class.error-border]="username?.invalid && username?.touched"
+        >
+
+        @if(username?.invalid && username?.touched){
+            <div class="error-message">
+                @if(username?.errors?.['required']){
+                    <span>username is required</span>
+                }
+                @if(username?.errors?.['minlength']){
+                    <span>Username must be at least 8 characters long</span>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Password Field -->
+     <div class="form-group">
+        <label for="password">Password</label>
+        <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Enter password"
+            [class.error-border]="password?.invalid && password?.touched"
+        >
+
+        @if(password?.invalid && password?.touched){
+            <div class="error-message">
+                @if(password?.errors?.['required']){
+                    <span>Password is required</span>
+                }
+                @if(password?.errors?.['minlength']){
+                    <span>Password must be at least 4 characters long</span>
+                }
+            </div>
+        }
+    </div>
+
+    @if(errorMessage!=""){
+        <div class="error-message">
+            <span>{{errorMessage}}</span>
+        </div>
+    }
+
+    <!-- Submit Button -->
+     <button type="submit", [disabled]="loginForm.invalid">Log In</button>
+
+  </form>
+</div>

@@ -1,0 +1,3 @@
+ng generate service services/JournalServices
+ng generate component component/Journal
+ng generate component auth/login
