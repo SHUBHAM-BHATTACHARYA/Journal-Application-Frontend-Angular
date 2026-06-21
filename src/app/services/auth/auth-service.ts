@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -8,7 +9,8 @@ import { Observable, tap } from 'rxjs';
 export class AuthService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ){
 
   }
@@ -53,6 +55,7 @@ export class AuthService {
   logout() {
     sessionStorage.removeItem(this.authHeaderKey);
     this.currentUsername.set(null);
+    this.router.navigate(['/'])
   }
 
 }

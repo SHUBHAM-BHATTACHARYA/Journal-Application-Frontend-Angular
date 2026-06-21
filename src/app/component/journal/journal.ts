@@ -8,12 +8,19 @@ import { JournalService } from '../../services/journal/journal-service';
   styleUrl: './journal.css',
 })
 export class Journal {
-  constructor(private jurnalService:JournalService){
 
-  }
+  constructor(private jurnalService:JournalService){}
+
+  journalData: any[] = [];
+
+  
+
   ngOnInit(){
     this.jurnalService.getJournals().subscribe({
-      next: (data) => console.log(data),
+      next: (response) => {
+        this.journalData = response;
+        console.log(this.journalData);
+      },
       error: (err) => console.error('Unauthorized or error', err)
     })
   }

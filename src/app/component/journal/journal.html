@@ -1,1 +1,15 @@
-<p>journal works!</p>
+<div class="row g-4">
+  @for(journal of journalData; track journal.id){
+    <div class="col-sm-6">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{journal.title}}</h5>
+                <p class="card-text">{{journal.content}}</p>
+                <p class="card-text">Created On: {{journal.date.split('T')[0]}}</p>
+                <a href="#" class="btn btn-primary">Edit</a>
+            </div>
+        </div>
+    </div>
+  }
+  
+</div>
