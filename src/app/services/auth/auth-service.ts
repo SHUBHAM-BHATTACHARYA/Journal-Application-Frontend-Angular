@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -14,6 +14,9 @@ export class AuthService {
   }
 
   private authHeaderKey = 'auth_token';
+
+  // Create a writable signal to syncup the value, ensures that any component displaying the username updates instantly when the user logs in or out
+  currentUsername = signal<string | null>('');
 
   login(username: string, password:string): Observable<any> {
     console.log(username);
@@ -33,9 +36,11 @@ export class AuthService {
       tap(()=>{
         // Safe token storage for app lifecycle persistence
         sessionStorage.setItem(this.authHeaderKey, token);
+        this.currentUsername.set(username);
       })
     )
   }
+
 
   getAuthorizationToken(): string | null {
     return sessionStorage.getItem(this.authHeaderKey);
@@ -47,6 +52,7 @@ export class AuthService {
 
   logout() {
     sessionStorage.removeItem(this.authHeaderKey);
+    this.currentUsername.set(null);
   }
 
 }
