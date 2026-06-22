@@ -1,0 +1,21 @@
+<button type="button" class="btn btn-primary" (click)="onAdd()">Add Journal</button>
+<div class="row g-4" >
+  @if(journalData.length > 0){
+    @for(journal of journalData; track journal.id){
+      <div class="col-sm-6">
+          <div class="card h-100">
+              <div class="card-body">
+                  <h5 class="card-title">{{journal?.title}}</h5>
+                  <p class="card-text">{{journal?.content}}</p>
+                  <p class="card-text">Created On: {{journal?.date.split('T')[0]}}</p>
+                  <a class="btn btn-primary" (click)="onEdit(journal.id)">Edit</a>&nbsp;
+                  <a class="btn btn-primary" (click)="onDelete(journal.id)">Delete</a>
+              </div>
+          </div>
+      </div>
+    }
+  } @else {
+    <p>Loading user data...</p>
+  }
+  
+</div>

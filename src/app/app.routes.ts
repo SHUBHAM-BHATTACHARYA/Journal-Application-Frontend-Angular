@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
-import { Journal } from './component/journal/journal';
+import { Journal } from './pages/journal/journal';
 import { Login } from './auth/login/login';
 import { authGuard } from './auth-guard';
 import { Register } from './auth/register/register';
+import { JournalAddEditForm } from './pages/journal-add-edit-form/journal-add-edit-form';
 
 export const routes: Routes = [
     // Triggers ONLY when the URL is strictly empty
@@ -14,5 +15,7 @@ export const routes: Routes = [
         canActivate: [authGuard] 
     },
     { path: 'login', component: Login},
-    { path: 'register', component: Register}
+    { path: 'register', component: Register},
+    { path: 'journal/addJournal', component: JournalAddEditForm},
+    { path: 'journal/editJournal/:id', component: JournalAddEditForm}
 ];
