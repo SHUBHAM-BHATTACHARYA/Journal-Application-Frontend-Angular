@@ -1,1 +1,114 @@
-<p>register works!</p>
+<div class="login-container">
+  <h2>User Registration</h2>
+  
+  <form [formGroup]="registerForm" (ngSubmit) = "onSubmit()">
+    <!-- Username Field -->
+    <div class="form-group">
+        <label for="username">Username</label>
+         <!-- The formControlName links this HTML username directly to your component control -->
+        <input
+            id="username"
+            type="username"
+            formControlName="username"
+            placeholder="Enter Username"
+            [class.error-border]="username?.invalid && username?.touched"
+        >
+
+        @if(username?.invalid && username?.touched){
+            <div class="error-message">
+                @if(username?.errors?.['required']){
+                    <span>username is required</span>
+                }
+                @if(username?.errors?.['minlength']){
+                    <span>Username must be at least 8 characters long</span>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Password Field -->
+     <div class="form-group">
+        <label for="password">Password</label>
+         <!-- The formControlName links this HTML password directly to your component control -->
+        <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Enter password"
+            [class.error-border]="password?.invalid && password?.touched"
+        >
+
+        @if(password?.invalid && password?.touched){
+            <div class="error-message">
+                @if(password?.errors?.['required']){
+                    <span>Password is required</span>
+                }
+                @if(password?.errors?.['minlength']){
+                    <span>Password must be at least 4 characters long</span>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Email Field -->
+    <div class="form-group">
+        <label for="email">email</label>
+         <!-- The formControlName links this HTML email directly to your component control -->
+        <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="Enter email"
+            [class.error-border]="email?.invalid && email?.touched"
+        >
+
+        @if(email?.invalid && email?.touched){
+            <div class="error-message">
+                @if(email?.errors?.['email']){
+                    <span>Email format is wrong</span>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Roles Field -->
+     <div class="form-group">
+        <!-- The formControlName links this HTML select directly to your component control -->
+        <label for="roles">Select Roles</label>
+        <select
+            id="rolesSelect"
+            formControlName="roles"
+            multiple
+        >
+        <!-- Use [ngValue] to bind objects or specific ID primitive values accurately -->
+        @for(role of rolesList; track role.id){
+            <option [value]="role.id">{{role.name}}</option>
+        }
+        </select>
+    </div>
+
+    <!-- Sentiment Analysis Field -->
+    <div class="form-group">
+        <label for="sentimentAnalysis">Sentiment Analysis</label>
+         <!-- The formControlName links this HTML sentimentAnalysis directly to your component control -->
+        <input
+            id="sentimentAnalysis"
+            type="checkbox"
+            formControlName="sentimentAnalysis"
+        >
+    </div>
+
+    @if(errorMessage!=""){
+        <div class="error-message">
+            <span>{{errorMessage}}</span>
+        </div>
+    }
+
+    <!-- Submit Button -->
+     <button type="submit", [disabled]="registerForm.invalid">Register</button>
+
+  </form>
+  <div>
+    <label>Already Register? <a routerLink="/login">Login here</a></label>
+  </div>
+</div>
